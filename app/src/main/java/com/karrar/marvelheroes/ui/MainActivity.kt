@@ -2,17 +2,10 @@ package com.karrar.marvelheroes.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
 import com.karrar.marvelheroes.R
-import com.karrar.marvelheroes.data.State
-import com.karrar.marvelheroes.data.network.Client
 import com.karrar.marvelheroes.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,23 +15,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setup()
+        initFragment(HomeFragment())
     }
 
-    private fun setup() {
+    private fun initFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_container, fragment)
+            addToBackStack(null)
+        }.commit()
 
-            val flow = flow {
-                emit(Client.getMovie(10))
-            }.flowOn(Dispatchers.IO)
-        lifecycleScope.launch {
-            flow.collect{
-                if (it is State.Success){
-                    Log.v("testApi", it.data.toString())
-
-                }else {
-                    Log.v("testApi", it.toString())
-                }
-            }
-        }
     }
 }
