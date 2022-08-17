@@ -1,6 +1,7 @@
 package com.karrar.marvelheroes.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -35,6 +36,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
             textMovieTitle.text = response?.title
             textMovieReleaseDate.text = response?.releaseDate
             textMovieDescription.text = response?.overview
+            textRelatedMovies.visibility = View.VISIBLE
 
             response?.let {
                 recyclerRelatedMovies.adapter = MovieAdapter(response.relatedMovies)
