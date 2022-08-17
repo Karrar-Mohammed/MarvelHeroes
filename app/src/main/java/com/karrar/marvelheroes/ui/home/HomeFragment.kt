@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.karrar.marvelheroes.R
-import com.karrar.marvelheroes.data.repository.Repository
 import com.karrar.marvelheroes.data.State
 import com.karrar.marvelheroes.data.marvelResponse.MovieResponse
+import com.karrar.marvelheroes.data.repository.Repository
 import com.karrar.marvelheroes.databinding.FragmentHomeBinding
-import com.karrar.marvelheroes.ui.base.BaseFragment
 import com.karrar.marvelheroes.ui.adapter.MovieAdapter
+import com.karrar.marvelheroes.ui.base.BaseFragment
 import com.karrar.marvelheroes.ui.movie.MovieFragment
 import com.karrar.marvelheroes.ui.movieInteraction.MovieItemInteraction
 import kotlinx.coroutines.flow.catch
@@ -42,19 +42,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieItemInteraction {
             Repository.getMoviesList()
                 .catch {
                     onError()
-                }.collect{ response ->
-                when(response){
-                    is State.Error -> {
-                        Toast.makeText(this@HomeFragment.context, response.message, Toast.LENGTH_SHORT).show()
-                    }
-                    State.Loading -> {
-                        onLoading()
-                    }
-                    is State.Success -> response.data?.moviesList?.let {
-                        onSuccess(it)
+                }.collect { response ->
+                    when (response) {
+                        is State.Error -> {
+                            Toast.makeText(
+                                this@HomeFragment.context,
+                                response.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        State.Loading -> {
+                            onLoading()
+                        }
+                        is State.Success -> response.data?.moviesList?.let {
+                            onSuccess(it)
+                        }
                     }
                 }
-            }
         }
     }
 
@@ -63,7 +67,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieItemInteraction {
             progressHome.visibility = View.GONE
             buttonTryAgain.visibility = View.VISIBLE
         }
-        Toast.makeText(this@HomeFragment.context, "an error has occurred", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@HomeFragment.context, "an error has occurred", Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun onLoading() {
