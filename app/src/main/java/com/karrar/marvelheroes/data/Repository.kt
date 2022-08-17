@@ -17,7 +17,7 @@ object Repository {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getMovie(movieId: Int): Flow<State<MovieResponse>> {
+    suspend fun getMovie(movieId: Int?): Flow<State<MovieResponse>> {
         return flow {
             emit(State.Loading)
             emit(Client.getMovie(movieId))

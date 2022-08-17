@@ -27,7 +27,7 @@ object Client {
 
     }
 
-    fun getMovie(movieId: Int): State<MovieResponse> {
+    fun getMovie(movieId: Int?): State<MovieResponse> {
         val response = makeRequest(getMovieUrl(movieId))
         return if (response.isSuccessful) {
 
@@ -44,7 +44,7 @@ object Client {
         return client.newCall(request).execute()
     }
 
-    private fun getMovieUrl(movieId: Int): HttpUrl {
+    private fun getMovieUrl(movieId: Int?): HttpUrl {
         return HttpUrl.Builder()
             .scheme(Constants.Api.SCHEME)
             .host(Constants.Api.HOST)

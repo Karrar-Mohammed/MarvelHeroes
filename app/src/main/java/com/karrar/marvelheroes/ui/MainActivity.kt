@@ -2,6 +2,7 @@ package com.karrar.marvelheroes.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import com.karrar.marvelheroes.R
 import com.karrar.marvelheroes.databinding.ActivityMainBinding
@@ -13,9 +14,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initFragment(MovieFragment())
+        initFragment(HomeFragment())
     }
 
     private fun initFragment(fragment: Fragment) {

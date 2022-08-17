@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".ui.MovieFragment">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -18,7 +19,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@mipmap/ic_launcher"/>
+                tools:src="@mipmap/ic_launcher"
+                tools:ignore="ContentDescription" />
 
             <View
                 android:id="@+id/view_shadow"
@@ -33,11 +35,11 @@
                 android:id="@+id/text_movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginBottom="16dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/image_movie_cover"
                 tools:text="Avengers End Game"/>
@@ -47,9 +49,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textColor="@color/textSecondaryColor"
-                app:layout_constraintEnd_toEndOf="@+id/text_movie_title"
                 app:layout_constraintStart_toStartOf="@+id/text_movie_title"
                 app:layout_constraintTop_toBottomOf="@+id/text_movie_title"
                 tools:text="2022" />
