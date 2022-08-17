@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.flowOn
 
 object Repository {
 
-    suspend fun getMoviesList(): Flow<State<MarvelResponse>> {
+    fun getMoviesList(): Flow<State<MarvelResponse>> {
         return flow {
             emit(State.Loading)
             emit(Client.getMarvelMoviesList())
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getMovie(movieId: Int?): Flow<State<MovieResponse>> {
+    fun getMovie(movieId: Int?): Flow<State<MovieResponse>> {
         return flow {
             emit(State.Loading)
             emit(Client.getMovie(movieId))
