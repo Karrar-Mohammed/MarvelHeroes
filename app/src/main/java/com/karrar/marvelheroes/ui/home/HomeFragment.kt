@@ -2,7 +2,9 @@ package com.karrar.marvelheroes.ui.home
 
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -15,6 +17,7 @@ import com.karrar.marvelheroes.ui.base.BaseFragment
 import com.karrar.marvelheroes.ui.adapter.MovieAdapter
 import com.karrar.marvelheroes.ui.movie.MovieFragment
 import com.karrar.marvelheroes.ui.movieInteraction.MovieItemInteraction
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 
@@ -25,27 +28,62 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieItemInteraction {
 
     override fun setup() {
         getMoviesList()
+        callBacks()
+    }
+
+    private fun callBacks() {
+        binding.buttonTryAgain.setOnClickListener {
+            getMoviesList()
+        }
     }
 
     private fun getMoviesList() {
         lifecycleScope.launch {
-            Repository.getMoviesList().collect{ response ->
+            Repository.getMoviesList()
+                .catch {
+                    onError()
+                }.collect{ response ->
                 when(response){
-                    is State.Error -> {}
-                    State.Loading -> {}
+                    is State.Error -> {
+                        Toast.makeText(this@HomeFragment.context, response.message, Toast.LENGTH_SHORT).show()
+                    }
+                    State.Loading -> {
+                        onLoading()
+                    }
                     is State.Success -> response.data?.moviesList?.let {
-                        setupRecycler(it)
+                        onSuccess(it)
                     }
                 }
             }
         }
     }
 
-    private fun setupRecycler(moviesList: List<MovieResponse>) {
+    private fun onError() {
         binding.apply {
-            PagerSnapHelper().attachToRecyclerView(homeRecycler)
+            progressHome.visibility = View.GONE
+            buttonTryAgain.visibility = View.VISIBLE
+        }
+        Toast.makeText(this@HomeFragment.context, "an error has occurred", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onLoading() {
+        binding.apply {
+            buttonTryAgain.visibility = View.GONE
+            progressHome.visibility = View.VISIBLE
+            recyclerHome.visibility = View.INVISIBLE
+        }
+    }
+
+
+    private fun onSuccess(moviesList: List<MovieResponse>) {
+        binding.apply {
+            progressHome.visibility = View.GONE
+            recyclerHome.visibility = View.VISIBLE
+            buttonTryAgain.visibility = View.GONE
+
+            PagerSnapHelper().attachToRecyclerView(recyclerHome)
             val adapter = MovieAdapter(moviesList, this@HomeFragment)
-            homeRecycler.adapter = adapter
+            recyclerHome.adapter = adapter
         }
     }
 
