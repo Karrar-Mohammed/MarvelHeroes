@@ -1,4 +1,4 @@
-package com.karrar.marvelheroes.ui
+package com.karrar.marvelheroes.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.karrar.marvelheroes.ui
+package com.karrar.marvelheroes.ui.home
 
 
 import android.view.LayoutInflater
@@ -7,10 +7,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.karrar.marvelheroes.R
-import com.karrar.marvelheroes.data.Repository
+import com.karrar.marvelheroes.data.repository.Repository
 import com.karrar.marvelheroes.data.State
 import com.karrar.marvelheroes.data.marvelResponse.MovieResponse
 import com.karrar.marvelheroes.databinding.FragmentHomeBinding
+import com.karrar.marvelheroes.ui.base.BaseFragment
+import com.karrar.marvelheroes.ui.adapter.MovieAdapter
+import com.karrar.marvelheroes.ui.movie.MovieFragment
+import com.karrar.marvelheroes.ui.movieInteraction.MovieItemInteraction
 import kotlinx.coroutines.launch
 
 
@@ -20,6 +24,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieItemInteraction {
         get() = FragmentHomeBinding::inflate
 
     override fun setup() {
+        getMoviesList()
+    }
+
+    private fun getMoviesList() {
         lifecycleScope.launch {
             Repository.getMoviesList().collect{ response ->
                 when(response){

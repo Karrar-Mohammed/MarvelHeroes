@@ -6,6 +6,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import com.karrar.marvelheroes.R
 import com.karrar.marvelheroes.databinding.ActivityMainBinding
+import com.karrar.marvelheroes.ui.home.HomeFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         initFragment(HomeFragment())
     }
 

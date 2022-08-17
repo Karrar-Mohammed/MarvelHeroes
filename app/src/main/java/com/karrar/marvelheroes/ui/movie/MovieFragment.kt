@@ -1,4 +1,4 @@
-package com.karrar.marvelheroes.ui
+package com.karrar.marvelheroes.ui.movie
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.karrar.marvelheroes.data.Repository
+import com.karrar.marvelheroes.data.repository.Repository
 import com.karrar.marvelheroes.data.State
 import com.karrar.marvelheroes.data.marvelResponse.MovieResponse
 import com.karrar.marvelheroes.databinding.FragmentMovieBinding
+import com.karrar.marvelheroes.ui.adapter.MovieAdapter
+import com.karrar.marvelheroes.ui.movieInteraction.MovieItemInteraction
+import com.karrar.marvelheroes.ui.base.BaseFragment
 import com.karrar.marvelheroes.util.Constants
 import kotlinx.coroutines.launch
 
@@ -32,14 +35,14 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(), MovieItemInteraction
                     is State.Error -> {}
                     State.Loading -> {}
                     is State.Success -> {
-                        bindDataToUi(response.data)
+                        onSuccess(response.data)
                     }
                 }
             }
         }
     }
 
-    private fun bindDataToUi(response: MovieResponse?) {
+    private fun onSuccess(response: MovieResponse?) {
         binding.apply {
             Glide.with(imageMovieCover).load(response?.coverUrl).into(imageMovieCover)
             textMovieTitle.text = response?.title

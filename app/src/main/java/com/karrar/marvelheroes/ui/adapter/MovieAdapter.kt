@@ -1,4 +1,4 @@
-package com.karrar.marvelheroes.ui
+package com.karrar.marvelheroes.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.karrar.marvelheroes.R
-import com.karrar.marvelheroes.data.marvelResponse.MarvelResponse
 import com.karrar.marvelheroes.data.marvelResponse.MovieResponse
 import com.karrar.marvelheroes.databinding.ItemMovieBinding
+import com.karrar.marvelheroes.ui.movieInteraction.MovieItemInteraction
 
-class MovieAdapter(private val list: List<MovieResponse?>, private val listener: MovieItemInteraction): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(
+    private val list: List<MovieResponse?>,
+    private val listener: MovieItemInteraction
+) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -33,7 +36,7 @@ class MovieAdapter(private val list: List<MovieResponse?>, private val listener:
 
     override fun getItemCount() = list.size
 
-    class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemMovieBinding.bind(itemView)
     }
 }
