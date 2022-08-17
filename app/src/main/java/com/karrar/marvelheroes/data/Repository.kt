@@ -16,4 +16,11 @@ object Repository {
             emit(Client.getMarvelMoviesList())
         }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun getMovie(movieId: Int): Flow<State<MovieResponse>> {
+        return flow {
+            emit(State.Loading)
+            emit(Client.getMovie(movieId))
+        }.flowOn(Dispatchers.IO)
+    }
 }

@@ -33,5 +33,5 @@ data class MovieResponse(
     @SerializedName("saga")
     val saga: String?,
     @SerializedName("related_movies")
-    val relatedMovies: List<MovieResponse?>?
+    val relatedMovies: List<MovieResponse?>
 )

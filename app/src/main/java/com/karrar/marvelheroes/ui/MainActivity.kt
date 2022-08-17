@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initFragment(HomeFragment())
+        initFragment(MovieFragment())
     }
 
     private fun initFragment(fragment: Fragment) {
